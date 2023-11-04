@@ -1,0 +1,19 @@
+{
+  "name": "finaltaskautomation-gsg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "cypress": "^13.4.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "cypress-plugin-api": "^2.11.1"
+  }
+}
