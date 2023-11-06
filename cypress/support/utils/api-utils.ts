@@ -25,7 +25,7 @@ declare global {
 
 Cypress.Commands.add('addJobTitle',(requestURL:string, userPayload:ICreateAddJobTitlePayload ): Cypress.Chainable<any>=>{
     return cy.wrap(undefined).then(() => {
-    cy.api({
+    cy.request({
         method:'POST',
         url:requestURL,
         body: userPayload, 
@@ -37,7 +37,7 @@ Cypress.Commands.add('addJobTitle',(requestURL:string, userPayload:ICreateAddJob
 
 Cypress.Commands.add('addLocation',(requestURL:string, userPayload:ICreateLocationPayload ): Cypress.Chainable<any>=>{
     return cy.wrap(undefined).then(() => {
-    cy.api({
+    cy.request({
         method:'POST',
         url:requestURL,
         body: userPayload, 
@@ -49,7 +49,7 @@ Cypress.Commands.add('addLocation',(requestURL:string, userPayload:ICreateLocati
 
 Cypress.Commands.add('addEmployee',(requestURL:string, userPayload:ICreateEmployeePayload ): Cypress.Chainable<any>=>{
     return cy.wrap(undefined).then(() => {
-    cy.api({
+    cy.request({
         method:'POST',
         url:requestURL,
         body: userPayload, 
@@ -63,7 +63,7 @@ Cypress.Commands.add('addEmployee',(requestURL:string, userPayload:ICreateEmploy
 
 Cypress.Commands.add('deleteEmployee',(requestURL:string, userPayload:IDeleteEmployeePayload ): Cypress.Chainable<any>=>{
     return cy.wrap(undefined).then(() => {
-    cy.api({
+    cy.request({
         method:'DELETE',
         url:requestURL,
         body: userPayload, 

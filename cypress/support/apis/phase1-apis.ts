@@ -7,7 +7,7 @@ class Phase1Apis {
     empNumber: number
   ): Cypress.Chainable<any> {
     return cy.wrap(undefined).then(() => {
-      cy.api({
+      cy.request({
         method: "PUT",
         url: `/web/index.php/api/v2/pim/employees/${empNumber}/job-details`,
         body: {
@@ -44,7 +44,7 @@ class Phase1Apis {
     jobTitleID: number
   ): Cypress.Chainable<any> {
     return cy.wrap(undefined).then(() => {
-      cy.api({
+      cy.request({
         method: "DELETE",
         url: `/web/index.php/api/v2/admin/job-titles`,
         body: {
@@ -62,12 +62,31 @@ class Phase1Apis {
     LocationID: number
   ): Cypress.Chainable<any> {
     return cy.wrap(undefined).then(() => {
-      cy.api({
+      cy.request({
         method: "DELETE",
         url: `/web/index.php/api/v2/admin/locations`,
         body: {
           ids: [
             LocationID
+          ]
+        },
+      }).then((response) => {
+        expect(response).property("status").to.equal(200);
+      });
+    });
+  }
+
+  static deleteReport(
+    ReportID: number
+  ): Cypress.Chainable<any> {
+    return cy.wrap(undefined).then(() => {
+      cy.request({
+        method: "DELETE",
+        url: `/web/index.php/api/v2/pim/reports/defined
+        `,
+        body: {
+          ids: [
+            ReportID
           ]
         },
       }).then((response) => {
