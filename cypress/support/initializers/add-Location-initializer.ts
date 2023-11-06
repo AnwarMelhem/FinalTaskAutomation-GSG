@@ -1,5 +1,8 @@
-import GenericHelper from "../helpers/GenericHelper";
+// add location initalizer
+
+import GenericHelper from "../helpers/generic-helper";
 import { ICreateLocationPayload } from "../apis/payload/add-location-payload";
+
 export default class AddLocation {
   static initAddLocation(): ICreateLocationPayload {
     let ICreateLocationPayload: ICreateLocationPayload = {
