@@ -10,7 +10,7 @@ import PimTab from "../support/pageObjects/pimTab";
 import GenericHelper from "../support/helpers/generic-helper";
 import SharedHelper from "../support/helpers/shared-helper"
 
-// This variable is uesed to save values returened from the response
+// This variable is uesed to save values returened from the API response
 let jobTitleId: any;
 let locationId: any;
 let firstEmployeeNumber: any;
