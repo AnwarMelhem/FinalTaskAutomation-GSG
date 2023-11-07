@@ -6,6 +6,8 @@ import { ICreateEmployeePayload } from "../apis/payload/add-employee-payload";
 import { ICreateEmployeeResponse } from "../apis/response/add-employee-response";
 import { IDeleteEmployeePayload } from "../apis/payload/delete-employee-payload";
 import { IDeleteEmployeeResponse } from "../apis/response/delete-employee-response";
+import { ICreateLoginDetailsPayload } from "../apis/payload/create-login-details-payload";
+import { ICreateLoginDetailsResponse } from "../apis/response/create-login-details-response";
 // this utils for API
 declare global {
   namespace Cypress {
@@ -26,6 +28,10 @@ declare global {
         requestURL: string,
         userPayload: IDeleteEmployeePayload
       ) => Chainable<IDeleteEmployeeResponse>;
+      createLoginDetails: (
+        requestURL: string,
+        userPayload: ICreateLoginDetailsPayload
+      ) => Chainable<ICreateLoginDetailsResponse>;
     }
   }
 }
@@ -96,6 +102,25 @@ Cypress.Commands.add(
     return cy.wrap(undefined).then(() => {
       cy.request({
         method: "DELETE",
+        url: requestURL,
+        body: userPayload,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).its("body");
+    });
+  }
+);
+// Command for create login details
+Cypress.Commands.add(
+  "createLoginDetails",
+  (
+    requestURL: string,
+    userPayload: ICreateLoginDetailsPayload
+  ): Cypress.Chainable<any> => {
+    return cy.wrap(undefined).then(() => {
+      cy.api({
+        method: "POST",
         url: requestURL,
         body: userPayload,
         headers: {
