@@ -7,7 +7,7 @@ import GenericHelper from "../helpers/generic-helper";
         method: "POST",
         url: `/web/index.php/api/v2/claim/events`,
         body: {
-          name: "New Event",
+          name: `New types${GenericHelper.genericRandomNumber()}`,
           description: "Description",
           status: true,
         },
@@ -37,7 +37,7 @@ import GenericHelper from "../helpers/generic-helper";
         method: "POST",
         url: `/web/index.php/api/v2/claim/expenses/types`,
         body: {
-          name: "New types",
+          name:`New types${GenericHelper.genericRandomNumber()}`,
           description: "Description",
           status: true,
         },
