@@ -119,7 +119,7 @@ Cypress.Commands.add(
     userPayload: ICreateLoginDetailsPayload
   ): Cypress.Chainable<any> => {
     return cy.wrap(undefined).then(() => {
-      cy.api({
+      cy.request({
         method: "POST",
         url: requestURL,
         body: userPayload,
