@@ -8,23 +8,36 @@ import PimTab from "../support/pageObjects/pimTab";
 import GenericHelper from "../support/helpers/generic-helper";
 import SharedHelper from "../support/helpers/shared-helper";
 import CreateLoginDetailsHelper from "../support/helpers/create-login-details-helper";
-let userName:any
+import Phase2Apis from "../support/apis/phase2-apis"
+let userName: any;
 describe("Phase1: Generate an Employee report)", () => {
   beforeEach(() => {
     // Admin login to HRMorange system
     cy.fixture("empLoginDeatiles").as("EmpInfo");
   });
   it("", () => {
+    // cy.loginOrangeHRM();
+    // AddEmployeeHelper.addEmployeeHelper().then((Response) => {
+    //   cy.get("@EmpInfo").then((data: any) => {
+    //     userName = `${data.userName}${GenericHelper.genericRandomNumber()}`;
+    //     CreateLoginDetailsHelper.createLoginDetails(
+    //       Response.data.empNumber,
+    //       userName,
+    //       data.password
+    //     );
+    //   });
+    // });
+    // cy.logoutOrangeHRM();
+    // cy.get("@EmpInfo").then((data: any) => {
+    //   cy.loginOrangeHRM(userName, data.password);
+    // });
     cy.loginOrangeHRM();
-    AddEmployeeHelper.addEmployeeHelper().then((Response) => {
-      cy.get("@EmpInfo").then((data: any) => {
-        userName=`${data.userName}${GenericHelper.genericRandomNumber()}`
-        CreateLoginDetailsHelper.createLoginDetails(
-          Response.data.empNumber,
-          userName,
-          data.password
-        );
-      });
-    });
+    Phase2Apis.addEvents().then((response)=>{
+        Phase2Apis.deleteEvent(response.body.data.id) 
+    })
+
+    Phase2Apis.addExpenseTypes().then((response)=>{
+        Phase2Apis.deleteEvent(response.body.data.id) 
+    })
   });
 });
