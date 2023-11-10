@@ -5,14 +5,16 @@ import SharedHelper from "../support/helpers/shared-helper";
 import CreateLoginDetailsHelper from "../support/helpers/create-login-details-helper";
 import Phase2Apis from "../support/apis/phase2-apis";
 import ClaimTab from "../support/pageObjects/claimTab";
+import DeleteEmployeeHelper from "../support/helpers/delete-employee-helper";
+
 let userName: any;
 let eventID: number;
 let expenseTypeID: number;
 let eventName: string;
 let expenseTypeName: string;
-let ClaimApproveID: any;
 let employeeFullName: any;
 let amount = (userName = `${GenericHelper.genericRandomNumber()}`);
+let EmployeeNumber:any
 
 describe("Phase2: Claims Scenarios", () => {
   beforeEach(() => {
@@ -23,6 +25,7 @@ describe("Phase2: Claims Scenarios", () => {
     // Create employee login details
     AddEmployeeHelper.addEmployeeHelper().then((Response) => {
       employeeFullName = `${Response.data.firstName} ${Response.data.middleName} ${Response.data.lastName}`;
+      EmployeeNumber = Response.data.empNumber;
       cy.get("@EmpInfo").then((data: any) => {
         userName = `${data.userName}${GenericHelper.genericRandomNumber()}`;
         CreateLoginDetailsHelper.createLoginDetails(
@@ -143,6 +146,7 @@ describe("Phase2: Claims Scenarios", () => {
 
 
   after(() => {
+    DeleteEmployeeHelper.deleteEmployeeHelper(EmployeeNumber);
     Phase2Apis.deleteEvent(eventID);
     Phase2Apis.deleteExpenseType(expenseTypeID);
   });
