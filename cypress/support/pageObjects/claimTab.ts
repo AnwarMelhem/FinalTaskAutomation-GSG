@@ -21,10 +21,11 @@ class ClaimTab {
     employeeAutoComplete: () => cy.get(".oxd-autocomplete-option"),
     searchButton: () => cy.get('[type="submit"]').contains("Search"),
     viewDetailsButton: () =>
-      cy.get('[type="button"]').contains(" View Details "),
+      cy.get('[type="button"]').contains("View Details"),
     approveButton: () => cy.get('[type="button"]').contains("Approve"),
     rejectButton: () => cy.get('[type="button"]').contains("Reject"),
     backButton: () => cy.get('[type="button"]').contains("Back"),
+    assignClaim:()=> cy.get('[type="button"]').contains("Assign Claim")
   };
   // all action needed created by functions
   static clicksToSubmitClaim() {
@@ -72,6 +73,7 @@ class ClaimTab {
     this.elements.submitButton().click({ force: true });
   }
   static searchForEmployeeName(employeeName: any) {
+    cy.intercept("/web/index.php/api/v2/claim/employees/**").as("submitClaim");
     cy.intercept("web/index.php/api/v2/pim/employees?nameOrId**").as(
       "nameOrId"
     );
@@ -85,15 +87,26 @@ class ClaimTab {
       .contains(employeeName)
       .click({ force: true });
     this.elements.searchButton().click({ force: true });
+    cy.wait("@submitClaim");
   }
   static clicksToViewDetailsButton() {
+   
     this.elements.viewDetailsButton().click({ force: true });
+  
   }
   static clicksToApproveButton() {
     this.elements.approveButton().click({ force: true });
   }
   static clicksToBackButton() {
     this.elements.backButton().click({ force: true });
+  }
+
+  static clicksToRejectButton() {
+    this.elements.rejectButton().click({ force: true });
+  }
+
+  static clicksToAssignClaim(){
+  this.elements.assignClaim().click({ force: true });
   }
 }
 

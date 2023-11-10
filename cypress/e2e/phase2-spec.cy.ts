@@ -14,7 +14,7 @@ let ClaimApproveID: any;
 let employeeFullName: any;
 let amount = (userName = `${GenericHelper.genericRandomNumber()}`);
 
-describe("Phase2: Claims Scenarios)", () => {
+describe("Phase2: Claims Scenarios", () => {
   beforeEach(() => {
     cy.fixture("empLoginDeatiles").as("EmpInfo");
     // Admin login to OrangeHRM
@@ -60,9 +60,6 @@ describe("Phase2: Claims Scenarios)", () => {
     ClaimTab.fillRemarkTextArea();
     ClaimTab.clicksToCreateButton();
     SharedHelper.checkLoadingSpinnerIsExist(false);
-    SharedHelper.extractIDFromURL().then((UrlID) => {
-      ClaimApproveID = UrlID;
-    });
     ClaimTab.clicksToAddButton();
     ClaimTab.AddExpense(expenseTypeName, GenericHelper.currentDate(), amount);
     SharedHelper.checkLoadingSpinnerIsExist(false);
@@ -83,6 +80,43 @@ describe("Phase2: Claims Scenarios)", () => {
     SharedHelper.validateTableRow("Status", "Paid");
     SharedHelper.validateTableRow("Amount", amount);
   });
+
+  it("Claim: Admin create claim then admin reject it", () => {
+    // New employee login to OrangeHRM
+    cy.get("@EmpInfo").then((data: any) => {
+      cy.loginOrangeHRM(userName, data.password);
+    });
+    // Employee clicks to cliam tab on dashboard
+    Dashboard.clicksToClaimTab();
+    ClaimTab.clicksToSubmitClaim();
+    ClaimTab.assertionForSubmitClaimTitlePage();
+    ClaimTab.clicksToSelectEventDropdown(eventName);
+    ClaimTab.clicksToSelectCurrencyDropdown();
+    ClaimTab.fillRemarkTextArea();
+    ClaimTab.clicksToCreateButton();
+    SharedHelper.checkLoadingSpinnerIsExist(false);
+    ClaimTab.clicksToAddButton();
+    ClaimTab.AddExpense(expenseTypeName, GenericHelper.currentDate(), amount);
+    SharedHelper.checkLoadingSpinnerIsExist(false);
+    ClaimTab.clicksToSubmitButton();
+    cy.logoutOrangeHRM();
+    cy.loginOrangeHRM();
+    Dashboard.clicksToClaimTab();
+    ClaimTab.searchForEmployeeName(employeeFullName);
+    ClaimTab.clicksToViewDetailsButton();
+    ClaimTab.clicksToRejectButton();
+    SharedHelper.checkLoadingSpinnerIsExist(false);
+    ClaimTab.clicksToBackButton();
+    ClaimTab.searchForEmployeeName(employeeFullName);
+    SharedHelper.validateTableRow(
+      "Submitted Date",
+      GenericHelper.currentDate()
+    );
+    SharedHelper.validateTableRow("Status", "Rejected");
+    SharedHelper.validateTableRow("Amount", amount);
+  });
+ 
+
 
   after(() => {
     Phase2Apis.deleteEvent(eventID);
