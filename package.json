@@ -9,7 +9,7 @@
     "clear:allure": "rimraf allure-results allure-results-aggregated-files allure-report",
     "clear:cypress": "rimraf cypress/screenshots cypress/videos",
     "Phase1": "npm run allure:clear && npx cypress run --browser chrome --spec cypress/e2e/phase1-spec.cy.ts --env allure=true && npm run allure:report",
-    "Test": "npx cypress run --browser chrome --spec cypress/e2e/phase1-spec.cy.ts"
+    "Phase2": "npm run allure:clear && npx cypress run --browser chrome --spec cypress/e2e/phase2-spec.cy.ts --env allure=true && npm run allure:report"
   },
   "author": "",
   "license": "ISC",
