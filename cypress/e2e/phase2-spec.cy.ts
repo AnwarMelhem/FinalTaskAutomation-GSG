@@ -81,7 +81,7 @@ describe("Phase2: Claims Scenarios", () => {
     SharedHelper.validateTableRow("Amount", amount);
   });
 
-  it("Claim: Admin create claim then admin reject it", () => {
+  it("Claim: Employee create claim then admin reject it", () => {
     // New employee login to OrangeHRM
     cy.get("@EmpInfo").then((data: any) => {
       cy.loginOrangeHRM(userName, data.password);
@@ -115,7 +115,31 @@ describe("Phase2: Claims Scenarios", () => {
     SharedHelper.validateTableRow("Status", "Rejected");
     SharedHelper.validateTableRow("Amount", amount);
   });
- 
+  it("Claim: Admin assign claim to employee -> status should be paid", () => {
+    // Admin login to OrangeHRM
+      cy.loginOrangeHRM();
+    // Admin clicks to cliam tab on dashboard
+    Dashboard.clicksToClaimTab();
+    ClaimTab.clicksToAssignClaim();
+    ClaimTab.assertionForSubmitClaimTitlePage();
+    ClaimTab.fillEmployeeName(employeeFullName);
+    ClaimTab.clicksToSelectEventDropdown(eventName);
+    ClaimTab.clicksToSelectCurrencyDropdown();
+    ClaimTab.fillRemarkTextArea();
+    ClaimTab.clicksToCreateButton();
+    SharedHelper.checkLoadingSpinnerIsExist(false);
+    ClaimTab.clicksToAddButton();
+    ClaimTab.AddExpenseInAdminPortal(expenseTypeName, GenericHelper.currentDate(), amount);
+    SharedHelper.checkLoadingSpinnerIsExist(false);
+    ClaimTab.clicksToBackButton();
+    ClaimTab.searchForEmployeeName(employeeFullName);
+    SharedHelper.validateTableRow(
+      "Submitted Date",
+      GenericHelper.currentDate()
+    );
+    SharedHelper.validateTableRow("Status", "Rejected");
+    SharedHelper.validateTableRow("Amount", amount);
+  });
 
 
   after(() => {

@@ -69,6 +69,13 @@ class ClaimTab {
     this.elements.amountInutField().eq(5).type(amount, { force: true }),
       this.elements.saveButton().click({ force: true });
   }
+  static AddExpenseInAdminPortal(expenseName: string, date: any, amount: any) {
+    this.elements.selectDropdownlist().click({ force: true });
+    this.elements.dropdownDiv().contains(expenseName).click({ force: true });
+    this.elements.dateBikerInput().type(date);
+    this.elements.amountInutField().eq(6).type(amount, { force: true }),
+      this.elements.saveButton().click({ force: true });
+  }
   static clicksToSubmitButton() {
     this.elements.submitButton().click({ force: true });
   }
@@ -88,6 +95,21 @@ class ClaimTab {
       .click({ force: true });
     this.elements.searchButton().click({ force: true });
     cy.wait("@submitClaim");
+  }
+  static fillEmployeeName(employeeName: any){
+    cy.intercept("/web/index.php/api/v2/claim/employees/**").as("submitClaim");
+    cy.intercept("web/index.php/api/v2/pim/employees?nameOrId**").as(
+      "nameOrId"
+    );
+    this.elements
+      .employeeNameInputForSearch()
+      .eq(0)
+      .type(employeeName, { force: true });
+    cy.wait("@nameOrId");
+    this.elements
+      .employeeAutoComplete()
+      .contains(employeeName)
+      .click({ force: true });
   }
   static clicksToViewDetailsButton() {
    
