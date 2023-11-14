@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Fri Nov 10 09:25:36 EET 2023","Fri Nov 10 09:26:03 EET 2023","26896","","Phase2: Claims Scenarios","","","","Claim: Admin assign claim to employee -> status should be paid",""
+"passed","Fri Nov 10 09:24:25 EET 2023","Fri Nov 10 09:25:02 EET 2023","36587","","Phase2: Claims Scenarios","","","","Claim: Employee create claim then admin approve it",""
+"passed","Fri Nov 10 09:25:02 EET 2023","Fri Nov 10 09:25:36 EET 2023","34333","","Phase2: Claims Scenarios","","","","Claim: Employee create claim then admin reject it",""

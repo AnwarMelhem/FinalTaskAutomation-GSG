@@ -61,8 +61,8 @@ Cypress.Commands.add("logoutOrangeHRM", () => {
   cy.intercept(
     "https://opensource-demo.orangehrmlive.com/web/index.php/core/i18n/messages**"
   ).as("messages");
-  cy.get(".oxd-userdropdown-tab").click();
-  cy.contains("[role=menuitem]", "Logout").click();
+  cy.get(".oxd-userdropdown-tab").click({force:true});
+  cy.contains("[role=menuitem]", "Logout").click({force:true});
 
   cy.wait("@messages");
 });

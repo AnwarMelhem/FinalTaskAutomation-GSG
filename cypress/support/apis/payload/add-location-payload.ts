@@ -1,3 +1,4 @@
+// Interface for add location payload
 export interface ICreateLocationPayload {
   name: string;
   countryCode: string;
